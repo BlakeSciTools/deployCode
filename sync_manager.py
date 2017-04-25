@@ -126,6 +126,7 @@ class SyncManager(BaseHTTPRequestHandler):
 
     def do_POST(self):
         components = self.getComponentsFromPath()
+        print(components)
 
         if components[0] == "users":
             if components[1] == None:
