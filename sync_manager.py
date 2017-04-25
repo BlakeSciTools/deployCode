@@ -399,7 +399,6 @@ class SyncManager(BaseHTTPRequestHandler):
 
     def handlePut200(self):
         self.send_response(200)
-        self.send_header("Content-type", "application/json")
         self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
         self.send_header("Access-Control-Allow-Credentials", "true")
         self.end_headers()
