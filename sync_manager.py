@@ -64,12 +64,6 @@ class SyncManager(BaseHTTPRequestHandler):
         for morsel in self.cookie.values():
             self.send_header("Set-Cookie", morsel.OutputString())
 
-    def end_headers(self):
-        self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
-        self.send_header("Access-Control-Allow-Credentials", "true")
-        self.send_cookie()
-        BaseHTTPRequestHandler.end_headers(self)
-
 
 
     #Responses
@@ -295,6 +289,8 @@ class SyncManager(BaseHTTPRequestHandler):
 
     def handleGet200(self, data):
         self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
+        self.send_header("Access-Control-Allow-Credentials", "true")
         self.send_header("Content-type", "application/json")
         self.end_headers()
         self.wfile.write(bytes(data, "utf-8"))
@@ -357,6 +353,9 @@ class SyncManager(BaseHTTPRequestHandler):
 
     def handle201(self):
         self.send_response(201)
+        self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
+        self.send_header("Access-Control-Allow-Credentials", "true")
+        self.send_cookie()
         self.end_headers()
 
 
@@ -440,12 +439,16 @@ class SyncManager(BaseHTTPRequestHandler):
     def handle404(self):
         self.send_response(404)
         self.send_header("Content-type", "text/html")
+        self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
+        self.send_header("Access-Control-Allow-Credentials", "true")
         self.end_headers()
         self.wfile.write(bytes("<strong>Not Found</strong>", "utf-8"))
 
     def handle401(self):
         self.send_response(401)
         self.send_header("Content-type", "text/html")
+        self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
+        self.send_header("Access-Control-Allow-Credentials", "true")
         self.end_headers()
         self.wfile.write(bytes("<strong>Wrong username or password</strong>", "utf-8"))
 
